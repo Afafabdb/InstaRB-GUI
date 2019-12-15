@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="col-sm-8">
+    <article class="media content-section">
+        <img class="rounded-circle instagram-img align-left"
+            src="{{ url_for('static',filename='profile_pics/'+user_log.userinstaaccount.insta_profile_pic)}}">
+        <div class="media-body">
+            <div class="article-metadata">
+                <strong>
+                    <a class="mr-2"
+                        href="{{ url_for('insta_user_run_log', insta_id = user_log.insta_account)}}">{{ user_log.userinstaaccount.insta_username }}</a>
+                </strong>
+                <small class="text-muted">
+                    <strong>Task: {{ user_log.task }} On
+                        {{ user_log.date_run.strftime("%d-%B-%Y") }}
+                    </strong>
+
+                    {% if user_log.status == 'Success'%}
+                    <span class="badge badge-success  ml-3">Success</span>
+                    {% else %}
+                    <span class="badge badge-danger ml-3">Failed</span>
+                    {% endif %}
+
+                </small>
+            </div>
+            <h2 class="article-title">{{ user_log.title }}</a></h2>
+            <p class="article-content">{{ user_log.content}}</p>
+        </div>
+    </article>
+</div>
+{% endblock content %}
