@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="col-sm-8">
+
+
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-5">InstaRB Tool Settings</legend>
+
+            <div class="form-group settings-section">
+                <div class="row">
+                    <div class="col-sm-7">
+                        {{ form.live_browser.label(class="form-control-file") }}
+                    </div>
+                    <div class="col-sm-3">
+                        {{ form.live_browser(class="form-control") }}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group settings-section">
+                <div class="row">
+                    <div class="col-sm-7">
+                        {{ form.do_like.label(class="form-control-file") }}
+                    </div>
+                    <div class="col-sm-3">
+                        {{ form.do_like(class="form-control") }}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group settings-section">
+                <div class="row">
+                    <div class="col-sm-7">
+                        {{ form.like_randomize.label(class="form-control-file") }}
+                    </div>
+                    <div class="col-sm-3">
+                        {{ form.like_randomize(class="form-control") }}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group settings-section">
+                <div class="row">
+                    <div class="col-sm-7">
+                        {{ form.like_percentage.label(class="form-control-file") }}
+                    </div>
+                    <div class="col-sm-3">
+                        {{ form.like_percentage(class="form-control") }}
+                        {% if form.like_percentage.errors %}
+                        {% for error in form.like_percentage.errors %}
+                        <span class="text-danger">{{ error }}</span> </br>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+
+
+</div>
+{% endblock content %}
