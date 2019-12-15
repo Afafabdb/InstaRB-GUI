@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, ">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'main.css')}}">
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- For toggle switch -->
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.5.0/css/bootstrap4-toggle.min.css"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.5.0/js/bootstrap4-toggle.min.js"></script>
+
+    {% if title %}
+    <title>InstaRB - {{ title }}</title>
+    {% else %}
+    <title>InstaRB</title>
+    {% endif %}
+    <link rel="icon"
+        href="https://images.vexels.com/media/users/3/147094/isolated/preview/055a10de0c31e98eef1451f742c32345-instagram-home-icon-by-vexels.png"
+        type="image/x-icon">
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+            <div class="container">
+                <a class="navbar-brand mr-4" href="{{ url_for('home_page')}}"><span
+                        class="fa fa-instagram fa-lg insta-class"> </span>
+                    InstaRB</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+                    aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <div class="navbar-nav mr-auto">
+                        {% if current_user.is_authenticated %}
+                        <a class="nav-item nav-link" href="{{ url_for('auto_liker') }}"><span
+                                class="fa fa-heart"></span>
+                            Auto Liker</a>
+                        <a class="nav-item nav-link" href="{{ url_for('acc_users') }}"><span
+                                class="fa fa-address-card"></span> Users</a>
+                        <a class="nav-item nav-link" href="{{ url_for('acc_logs') }}"><span class="fa fa-server"></span>
+                            Logs</a>
+                        <a class="nav-item nav-link" href="{{ url_for('acc_settings') }}"><span
+                                class="fa fa-cog"></span>
+                            Settings</a>
+                        {% endif %}
+                    </div>
+                    <!-- Navbar Right Side -->
+                    <div class="navbar-nav">
+                        {% if current_user.is_authenticated %}
+                        <a class="nav-item nav-link" href="{{ url_for('account') }}"><span
+                                class="fa fa-user-circle-o"></span>
+                            Account</a>
+                        <a class="nav-item nav-link" href="{{ url_for('logout') }}"> <span
+                                class="fa fa-sign-out"></span> Logout</a>
+                        {% else %}
+
+                        <a class="nav-item nav-link" href="{{ url_for('login') }}"><span class="fa fa-sign-in"></span>
+                            Login</a>
+                        <a class="nav-item nav-link" href="{{ url_for('register') }}"><span
+                                class="fa fa-user-plus"></span> Register</a>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div role="alert" class="alert alert-{{ category }} alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                {% block content %}
+                <!-- content will be rendered here -->
+                {% endblock %}
+            </div>
+        </div>
+    </main>
+
+
+</body>
+
+</html>
