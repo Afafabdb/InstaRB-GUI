@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="col-sm-12">
+
+
+    <div class="row">
+        <div class="col-sm-12 mb-2">
+            <legend class="instagram-title">Instagram Accounts</legend>
+            <a href="{{url_for('new_user')}}">
+                <div class="text-right">
+                    <button class="btn btn-primary instagram-add-user-btn mb-3">Add
+                        Instagram Account
+                    </button>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for insta_user in insta_users %}
+        <div class="col-sm-4 mb-2">
+            <div class="card">
+                <div class="card-body">
+                    <img class="rounded-circle instagram-img"
+                        src="{{ url_for('static',filename='profile_pics/'+insta_user.insta_profile_pic)}}">
+                    <h5 class="card-title">{{ insta_user.insta_name }}</h5>
+                    <p class="card-text"> username: {{ insta_user.insta_username }}</p>
+                    <a href="{{ url_for('edit_user',insta_id = insta_user.id)}}" class="btn btn-primary">Edit</a>
+                    <button type="button" class="btn btn-danger" data-toggle="modal"
+                        data-target="#deleteInstaUserModal">Delete</a>
+                </div>
+            </div>
+        </div>
+        <!-- The Modal -->
+        <div class="modal" id="deleteInstaUserModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Delete account?</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <form action="{{ url_for('delete_user', insta_id = insta_user.id ) }}" method="POST">
+                            <input class="btn btn-danger" type="submit" value="Delete">
+                        </form>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock content %}
