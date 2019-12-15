@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="col-sm-8">
+    {% if insta_user_logs %}
+    {% for insta_user_log in insta_user_logs %}
+    <article class="media content-section">
+        <img class="rounded-circle instagram-img align-left"
+            src="{{ url_for('static',filename='profile_pics/'+insta_user_log.userinstaaccount.insta_profile_pic)}}">
+        <div class="media-body">
+            <div class="article-metadata">
+                <strong>
+                    <div class="mr-2">{{ insta_user_log.userinstaaccount.insta_username }}</div>
+                </strong>
+                <small class="text-muted">
+                    <strong>Task: {{ insta_user_log.task }} On
+                        {{ insta_user_log.date_run.strftime("%d-%B-%Y") }}
+                    </strong>
+
+                    {% if insta_user_log.status == 'Success'%}
+                    <span class="badge badge-success  ml-3">Success</span>
+                    {% else %}
+                    <span class="badge badge-danger ml-3">Failed</span>
+                    {% endif %}
+
+                </small>
+            </div>
+            <h2 class="article-title"><a class="article-title"
+                    href="{{ url_for('user_run_log', log_id=insta_user_log.id)}}">{{ insta_user_log.title }}</a></h2>
+            <p class="article-content">{{ insta_user_log.content | truncate(125)}}</p>
+        </div>
+    </article>
+    {% endfor %}
+    {% else %}
+    <h2>Currently there are no logs. Please run Auto Liker and come back</h2>
+    {% endif %}
+</div>
+{% endblock content %}
