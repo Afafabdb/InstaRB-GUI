@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- FORM HERE -->
+<form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="content-section">
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Auto Liker</legend>
+                    <div class="form-group">
+                        {{ form.title.label(class="form-control-label") }}
+                        {% if form.title.errors %}
+                        {{ form.title(class="form-control is-invalid") }}
+                        {% for error in form.title.errors %}
+                        <div class="invalid-feedback feedback-inv">
+                            <span>{{ error }}</span>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        {{ form.title(class="form-control") }}
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.list_of_urls.label(class="form-control-label") }}
+                        {% if form.list_of_urls.errors %}
+                        {{ form.list_of_urls(class="text-size textarea form-control form-control-lg is-invalid") }}
+                        {% for error in form.list_of_urls.errors %}
+                        <div class="invalid-feedback feedback-inv">
+                            <span>{{ error }}</span>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        {{ form.list_of_urls(class="text-size textarea form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+
+                </fieldset>
+                <div class="text-right form-group">
+                    {{ form.submit(class="btn btn-outline-info mr-3") }}
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="content-section">
+                <legend>Instagram Accounts</legend>
+                <div class="funkyradio">
+                    {% for subfield in form.insta_account %}
+                    <div class="funkyradio-primary">
+                        {{subfield}}
+                        {{subfield.label}}
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</form>
+
+{% endblock content %}
